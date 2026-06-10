@@ -10,20 +10,17 @@ State Render Optimization: Implemented strict conditional rendering algorithms a
 
 Project Structure:
 
-dragmap-ingestion-canvas/
-dragmap-ingestion-canvas/
-├── backend/
 
-│   └── main.py
+    ├── backend/
+    │   └── main.py
+    └── frontend/
+        ├── src/
+        │   ├── components/
+        │   │   ├── CodeSchemaViewer.jsx
+        │   │   └── DropTargetField.jsx
+        │   └── App.jsx
+        └── index.html
 
-└── frontend/
-
-    ├── src/
-    │   ├── components/
-    │   │   ├── CodeSchemaViewer.jsx
-    │   │   └── DropTargetField.jsx
-    │   └── App.jsx
-    └── index.html
 
 Core Technical Features:
 
