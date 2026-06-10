@@ -1,42 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function DropTargetField({ schemaKey, pairedSourceField, onDropElement, onClearElement }) {
+  const [isDragOver, setIsDragOver] = useState(false);
   const isLinked = !!pairedSourceField;
+
+  const handleDragEnterRule = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeaveRule = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDroppedValueAction = (e, key) => {
+    setIsDragOver(false);
+    onDropElement(e, key);
+  };
 
   return (
     <div 
       onDragOver={(e) => e.preventDefault()}
-      onDrop={(e) => onDropElement(e, schemaKey)}
+      onDragEnter={handleDragEnterRule}
+      onDragLeave={handleDragLeaveRule}
+      onDrop={(e) => handleDroppedValueAction(e, schemaKey)}
       style={{ 
         padding: '20px', 
-        background: '#09090b', 
+        background: isLinked ? '#04140f' : isDragOver ? '#1c1917' : '#09090b', 
         borderRadius: '10px', 
-        border: `2px dashed ${isLinked ? '#10b981' : '#27272a'}`,
-        transition: 'all 0.2s ease',
-        position: 'relative'
+        border: `2px dashed ${isLinked ? '#10b981' : isDragOver ? '#3b82f6' : '#27272a'}`,
+        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        position: 'relative',
+        boxSizing: 'border-box'
       }}
     >
-      <div style={{ fontSize: '13px', color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
-        Target Database Index Key: <strong style={{ color: '#f4f4f5' }}>{schemaKey}</strong>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <span style={{ fontSize: '11px', color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '600' }}>
+          Target Relational Index Key
+        </span>
+        <strong style={{ fontSize: '15px', color: '#f4f4f5', fontFamily: 'monospace' }}>
+          {schemaKey}
+        </strong>
       </div>
       
-      {isLinked ? (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
-          <span style={{ color: '#34d399', fontWeight: '600', fontSize: '14px' }}>
-            Linked to ➔ <code style={{ background: '#064e3b', padding: '2px 6px', borderRadius: '4px' }}>{pairedSourceField}</code>
+      <div style={{ marginTop: '12px' }}>
+        {isLinked ? (
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#022c22', padding: '10px 14px', borderRadius: '6px', border: '1px solid #065f46' }}>
+            <span style={{ color: '#34d399', fontWeight: '600', fontSize: '13px' }}>
+              Mapped Attribute: <code style={{ background: '#04140f', padding: '2px 6px', borderRadius: '4px', color: '#6ee7b7' }}>{pairedSourceField}</code>
+            </span>
+            <button onClick={() => onClearElement(schemaKey)} className="clear-link-btn" style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold', padding: 0 }}>
+              Disconnect Pipeline
+            </button>
+          </div>
+        ) : (
+          <span style={{ color: '#4b5563', fontSize: '13px', fontStyle: 'italic', display: 'block', padding: '4px 0' }}>
+            {isDragOver ? "Release link vector payload now..." : "Awaiting drag node alignment input connection vector..."}
           </span>
-          <button 
-            onClick={() => onClearElement(schemaKey)}
-            style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold' }}
-          >
-            Disconnect Field
-          </button>
-        </div>
-      ) : (
-        <span style={{ color: '#3f3f46', fontSize: '13px', fontStyle: 'italic' }}>
-          Drop source input property vector link here...
-        </span>
-      )}
+        )}
+      </div>
     </div>
   );
 }
