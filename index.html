@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DragMap Normalization Layout Canvas Matrix</title>
+  <style>
+    html, body { background-color: #030205; color: #e4e4e7; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; padding: 20px; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    .canvas-wrapper { max-width: 1400px; margin: 40px auto; padding: 0 20px; box-sizing: border-box; }
+    .canvas-grid-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; box-sizing: border-box; }
+    .source-column-shelf, .target-matrix-shelf { background: #09090b; border: 1px solid #1c1c1f; padding: 28px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
+    h2 { font-size: 15px; margin: 0 0 24px 0; font-weight: 600; color: #ffffff; letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 1px solid #1c1c1f; padding-bottom: 12px; }
+    .drag-item-node { padding: 14px 18px; background: #141416; border: 1px solid #27272a; border-radius: 8px; cursor: grab; color: #22d3ee; font-weight: 600; margin-bottom: 14px; transition: all 0.15s ease-in-out; display: flex; align-items: center; gap: 8px; user-select: none; }
+    .drag-item-node:hover { background: #1c1c1f; border-color: #4b5563; color: #67e8f9; }
+    .drag-item-node:active { cursor: grabbing; transform: scale(0.98); }
+    .drop-target-box { padding: 22px; background: #030205; border: 2px dashed #27272a; border-radius: 10px; margin-bottom: 18px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .target-label { font-size: 11px; text-transform: uppercase; color: #71717a; letter-spacing: 0.05em; font-weight: 600; }
+    .placeholder-txt { color: #3f3f46; font-size: 13px; font-style: italic; display: block; margin-top: 8px; }
+    .link-status-row { display: flex; justify-content: space-between; margin-top: 12px; align-items: center; background: #022c22; padding: 10px 14px; border-radius: 6px; border: 1px solid #065f46; font-size: 13px; color: #34d399; }
+    .link-status-row code { background: #04140f; padding: 2px 6px; border-radius: 4px; color: #6ee7b7; font-family: monospace; }
+    .clear-link-btn { background: none; border: none; color: #ef4444; font-weight: 600; cursor: pointer; font-size: 12px; transition: color 0.15s; padding: 0; }
+    .clear-link-btn:hover { color: #f87171; text-decoration: underline; }
+    .schema-sidebar-card { background: #09090b; border: 1px solid #1c1c1f; padding: 28px; border-radius: 12px; height: fit-content; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
+    .code-block-render { background: #030205; padding: 18px; border-radius: 8px; overflow-x: auto; color: #a1a1aa; font-family: monospace; font-size: 13px; border: 1px solid #1c1c1f; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #030205; }
+    ::-webkit-scrollbar-thumb { background: #1c1c1f; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
