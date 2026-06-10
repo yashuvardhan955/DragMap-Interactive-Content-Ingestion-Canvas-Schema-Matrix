@@ -13,8 +13,11 @@ Project Structure:
 dragmap-ingestion-canvas/
 dragmap-ingestion-canvas/
 ├── backend/
+
 │   └── main.py
+
 └── frontend/
+
     ├── src/
     │   ├── components/
     │   │   ├── CodeSchemaViewer.jsx
